@@ -67,7 +67,7 @@ public class SimpleTextureView extends TextureView implements TextureView.Surfac
                     if (animatedValue != (int) animation.getAnimatedValue()) {
                         animatedValue = (int) animation.getAnimatedValue();
                         drawMe(getWidth(), getHeight());
-                        fcount+=2;
+                        fcount += 2;
                     }
                 }
             });
@@ -87,20 +87,21 @@ public class SimpleTextureView extends TextureView implements TextureView.Surfac
 
         int space = width / 11;
         Canvas canvas = lockCanvas();
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        canvas.translate(width >> 1, height >> 1);
-        for (int x = -4; x <= 4; x++) {
-            for (int y = -4; y <= 4; y++) {
-                canvas.save();
-                canvas.rotate((float) Math.sin(Math.toRadians((y * x) * 5 + fcount )) * 60, x * space + space, y * space + space);
-                storkPaint.setStrokeWidth((float) (4 + Math.sin(Math.toRadians((y * x) * 5 + fcount )) * 4));
+        if (canvas != null) {
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            canvas.translate(width >> 1, height >> 1);
+            for (int x = -4; x <= 4; x++) {
+                for (int y = -4; y <= 4; y++) {
+                    canvas.save();
+                    canvas.rotate((float) Math.sin(Math.toRadians((y * x) * 5 + fcount)) * 60, x * space + space, y * space + space);
+                    storkPaint.setStrokeWidth((float) (4 + Math.sin(Math.toRadians((y * x) * 5 + fcount)) * 4));
 //                storkPaint.setColor((Integer) argbEvaluator.evaluate(frab, 0x7d007dff, 0x7dff007d));
-                canvas.drawCircle(x * space, y * space, 15, fillPaint);
-                canvas.drawCircle(x * space, y * space, 15, storkPaint);
-                canvas.restore();
+                    canvas.drawCircle(x * space, y * space, 15, fillPaint);
+                    canvas.drawCircle(x * space, y * space, 15, storkPaint);
+                    canvas.restore();
+                }
             }
         }
-
         unlockCanvasAndPost(canvas);
     }
 
@@ -111,6 +112,9 @@ public class SimpleTextureView extends TextureView implements TextureView.Surfac
 
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+        if (valueAnimator != null) {
+            valueAnimator.cancel();
+        }
         return false;
     }
 

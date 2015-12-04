@@ -20,6 +20,12 @@ public class SquareMotionView extends SurfaceView implements SurfaceHolder.Callb
     private float sweepAngle = 90;
     SurfaceHolder mHolder;
 
+    public void setSweepAngle(float angle) {
+        sweepAngle = angle;
+        invalidate();
+    }
+
+
     public SquareMotionView(Context context) {
         super(context);
         initPaint();
@@ -110,7 +116,7 @@ public class SquareMotionView extends SurfaceView implements SurfaceHolder.Callb
             canvas = mHolder.lockCanvas(null);//锁整个画布
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);//清除屏幕
 
-            for (int r = 10; r < centerX; r += 40) {
+            for (int r = 10; r < centerX; r += 30) {
                 canvas.rotate(animatedValue, centerX, centerY);
                 linePaint.setStrokeWidth(r / 20);
                 rectF.top = centerX - r;
