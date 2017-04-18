@@ -1,8 +1,8 @@
 # ToyView
 Draw animation
 
-##Arc
+## Arc
 ![](gif/demo1.gif)
 
-##Square bilibili
+## Square bilibili
 ![](gif/demo2.gif)
